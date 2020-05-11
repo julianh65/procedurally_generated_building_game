@@ -15,7 +15,7 @@ public class Build_Preview_Script : MonoBehaviour
     //the little cube attatched to player that says where to build
     public Transform build_position_reference;
 
-    public Transform player_camera;
+    public Camera player_camera;
 
   
 
@@ -24,7 +24,7 @@ public class Build_Preview_Script : MonoBehaviour
     public float grid_size = 1f;
 
     //snap mode free mode toggle
-    public bool snap_mode_enabled = false;
+    public bool snap_mode_enabled = true;
 
     //private variables
 
@@ -45,6 +45,10 @@ public class Build_Preview_Script : MonoBehaviour
 
     //scroll_speed_float
     public float scroll_speed;
+    private float scroll_distance = 7;
+    public int min_scroll_build_distance;
+    public int max_scroll_build_distance;
+
 
     void get_current_object()
     {
@@ -121,24 +125,32 @@ public class Build_Preview_Script : MonoBehaviour
 
     }
 
+
     void scroll_method()
     {
 
         var scrooling = Input.GetAxis("Mouse ScrollWheel");
 
+
         
-        if (scrooling > 0f)
+        if (scrooling > 0f && scroll_distance < max_scroll_build_distance)
         {
-            Vector3 scroll_in = new Vector3(0, 0, scroll_speed);
-            build_position_reference.Translate(scroll_in);
+            scroll_distance += 1 * scroll_speed;
+
+            build_position_reference.transform.localPosition = new Vector3(0, 0.07f, scroll_distance);
+
         }
 
-        if (scrooling < 0f)
+        if (scrooling < 0f && scroll_distance > min_scroll_build_distance)
         {
-            Vector3 scroll_out = new Vector3(0, 0, -scroll_speed);
-            build_position_reference.Translate(scroll_out);
+            scroll_distance -= 1 * scroll_speed;
+
+            build_position_reference.transform.localPosition = new Vector3(0, 0.07f, scroll_distance);
         }
         
+
+        
+
 
     }
 
@@ -155,6 +167,7 @@ public class Build_Preview_Script : MonoBehaviour
         {
             destroy_preview_object();
             create_preview_object();
+            have_changed_object = false;
         }
 
         scroll_method();

@@ -16,7 +16,6 @@ public class Build_Mode : MonoBehaviour
 
     //preview script references
     public Build_Preview_Script preview;
-    //public Build_Preview_Script_SnapMode preview_SnapMode;
 
 
     //rotation variables
@@ -27,7 +26,8 @@ public class Build_Mode : MonoBehaviour
     //rotation key
     public KeyCode rotation_key;
     public KeyCode snap_mode_toggle_key;
-    public KeyCode toggle_between_building_prefabs_key;
+    public KeyCode toggle_between_building_prefabs_key_forward;
+    public KeyCode toggle_between_building_prefabs_key_backwards;
 
     private void Update()
     {
@@ -48,13 +48,18 @@ public class Build_Mode : MonoBehaviour
             toggle_snap_mode();
         }
 
-        if (Input.GetKeyDown(toggle_between_building_prefabs_key))
+        if (Input.GetKeyDown(toggle_between_building_prefabs_key_forward))
         {
-            toggle_between_objects();
+            toggle_between_objects_forwards();
+        }
+
+        if (Input.GetKeyDown(toggle_between_building_prefabs_key_backwards))
+        {
+            toggle_between_objects_backwards();
         }
     }
 
-    public void toggle_between_objects()
+    public void toggle_between_objects_forwards()
     {
         if(current_object_index + 1 == build_objects_list.Count)
         {
@@ -65,14 +70,29 @@ public class Build_Mode : MonoBehaviour
             current_object_index += 1;
         }
 
-        Debug.Log(current_object_index);
+        preview.have_changed_object = true;
+
+    }
+
+    public void toggle_between_objects_backwards()
+    {
+        if (current_object_index == 0)
+        {
+            current_object_index = build_objects_list.Count - 1;
+        }
+        else
+        {
+            current_object_index -= 1;
+        }
+
+        preview.have_changed_object = true;
+
     }
 
 
     public void rotate_object()
     {
         object_y_rotation_value += rotation_speed;
-        preview.have_changed_object = true;
     }
 
 

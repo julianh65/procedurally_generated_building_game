@@ -9,8 +9,6 @@ public class Player_Controls : MonoBehaviour
     //keys to activate things
 
     public KeyCode build_mode_key;
-    public KeyCode snap_mode_key;
-
 
 
 
