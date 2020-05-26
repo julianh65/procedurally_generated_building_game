@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_Controls : MonoBehaviour
 {
     public GameObject build_manager;
+    public GameObject combat_manager;
 
     //keys to activate things
 
@@ -26,11 +27,15 @@ public class Player_Controls : MonoBehaviour
             {
                 build_manager.GetComponent<Build_Mode>().enabled = true;
                 build_manager.GetComponent<Build_Preview_Script>().enabled = true;
+                combat_manager.GetComponent<shoot>().enabled = false;
+
+
 
             }
 
             else if (build_manager.GetComponent<Build_Mode>().enabled == true)
             {
+                combat_manager.GetComponent<shoot>().enabled = true;
                 build_manager.GetComponent<Build_Preview_Script>().enabled = false;
                 build_manager.GetComponent<Build_Mode>().destroy_preview();
                 build_manager.GetComponent<Build_Mode>().enabled = false;
@@ -38,18 +43,10 @@ public class Player_Controls : MonoBehaviour
             }
 
 
-
-        
-
-        
-
-
-
-
-
-
-
         }
+
+        
+        
 
     }
 }
