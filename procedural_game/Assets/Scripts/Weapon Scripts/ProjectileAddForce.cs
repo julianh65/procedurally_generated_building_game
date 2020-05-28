@@ -12,15 +12,14 @@ public class ProjectileAddForce : MonoBehaviour
     {
         rigidb = GetComponent<Rigidbody>();
         rigidb.velocity = Vector3.zero;
-        
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        SpinObjectInAir();   
+        SpinObjectInAir();
     }
-    
+
     void ApplyForce()
     {
         rigidb.AddRelativeForce(Vector3.forward * shootForce);
