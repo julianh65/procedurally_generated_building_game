@@ -20,6 +20,9 @@ public class shoot : MonoBehaviour
 
     public int drawSpeed;
 
+    public Transform bowPosition;
+
+    public GameObject bowPrefab;
 
 
     public int numberOfArrows = 10;
@@ -34,12 +37,18 @@ public class shoot : MonoBehaviour
     public float maxPullbackDistance;
 
 
+    public void starto()
+    {
+        Debug.Log("Start");
+        currentArrow = Instantiate(arrowPrefab, arrow_position.position, arrow_position.rotation);
+    }
+
     void Update()
     {
 
         SpawnArrow();
 
-        currentArrow.transform.position = arrow_position.transform.position;
+        currentArrow.transform.position = stringReference.transform.position;
 
         currentArrow.transform.eulerAngles = arrow_position.transform.eulerAngles;
 
@@ -116,6 +125,22 @@ public class shoot : MonoBehaviour
         numberOfArrows -= 1;
         shootForce = 10;
 
+
+    }
+
+
+    public void destroyWeapon()
+    {
+        Destroy(bow);
+        Destroy(currentArrow);
+    }
+
+    public void createWeapon()
+    {
+        bow = (GameObject)Instantiate(bowPrefab, bowPosition.position, bowPosition.rotation);
+        bow.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
+        bow.transform.parent = forwardShootDirection.transform;
+        stringReference = bow.transform.Find("Armature").Find("main").Find("string").gameObject;
 
     }
 

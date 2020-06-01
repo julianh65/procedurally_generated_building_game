@@ -110,7 +110,6 @@ public class Build_Mode : MonoBehaviour
 
     public void destroy_preview()
     {
-        Debug.Log("Destroying");
         preview.destroy_preview_object();
         preview.have_changed_object = true;
     }

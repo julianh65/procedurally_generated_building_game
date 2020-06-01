@@ -27,6 +27,7 @@ public class Player_Controls : MonoBehaviour
             {
                 build_manager.GetComponent<Build_Mode>().enabled = true;
                 build_manager.GetComponent<Build_Preview_Script>().enabled = true;
+                combat_manager.GetComponent<shoot>().destroyWeapon();
                 combat_manager.GetComponent<shoot>().enabled = false;
 
 
@@ -36,6 +37,8 @@ public class Player_Controls : MonoBehaviour
             else if (build_manager.GetComponent<Build_Mode>().enabled == true)
             {
                 combat_manager.GetComponent<shoot>().enabled = true;
+                combat_manager.GetComponent<shoot>().createWeapon();
+                combat_manager.GetComponent<shoot>().starto();
                 build_manager.GetComponent<Build_Preview_Script>().enabled = false;
                 build_manager.GetComponent<Build_Mode>().destroy_preview();
                 build_manager.GetComponent<Build_Mode>().enabled = false;
